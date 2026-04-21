@@ -1,31 +1,52 @@
-package com.ironhack.restoranmanagementsystem.repository;
+package com.ironhack.restoranmanagementsystem.entity;
 
+import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.ReservationStatus;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@Entity
+@Table(name = "reservations")
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @Column(nullable = false, name = "reservation_time")
     private LocalDateTime reservationTime;
-    @Column
+
+    @Column(nullable = false, name = "guest_count")
     private  int guestCount;
-    @Column
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ReservationStatus status;
-    @Column
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    @Column
+
+    @Column(name = "created_at", nullable = false)
     private LocalDate createdAt;
 
     @ManyToOne
-    @JoinColumn()
+    @JoinColumn(name = "table_id", nullable = false)
     private RestaurantTable restaurantTable;
 
     public Reservation(){}
+
+    public Reservation(LocalDateTime reservationTime, int guestCount, ReservationStatus status, User user, LocalDate createdAt, RestaurantTable restaurantTable) {
+        this.reservationTime = reservationTime;
+        this.guestCount = guestCount;
+        this.status = status;
+        this.user = user;
+        this.createdAt = createdAt;
+        this.restaurantTable = restaurantTable;
+    }
+
+
 
     public Long getId() {
         return id;

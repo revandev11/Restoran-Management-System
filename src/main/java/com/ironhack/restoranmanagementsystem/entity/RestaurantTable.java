@@ -1,4 +1,5 @@
-package com.ironhack.restoranmanagementsystem.repository;
+package com.ironhack.restoranmanagementsystem.entity;
+
 
 import jakarta.persistence.*;
 
@@ -8,18 +9,31 @@ import java.util.List;
 @Table(name = "restaurant_table")
 public class RestaurantTable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @Column(name = "table_number", unique = true, nullable = false)
     private int tableNumber;
-    @Column
+
+    @Column(nullable = false)
     private int capacity;
-    @Column
+
+    @Column(nullable = false, name = "is_available")
     private boolean isAvailable;
 
-    @OneToMany(mappedBy ="restaurantTable")
+    @OneToMany(mappedBy ="restaurantTable", cascade = CascadeType.ALL)
     private List<Reservation>reservations;
+
     public RestaurantTable(){}
+
+    public RestaurantTable(int tableNumber, int capacity, boolean isAvailable, List<Reservation> reservations) {
+        this.tableNumber = tableNumber;
+        this.capacity = capacity;
+        this.isAvailable = isAvailable;
+        this.reservations = reservations;
+    }
+
+
 
     public Long getId() {
         return id;

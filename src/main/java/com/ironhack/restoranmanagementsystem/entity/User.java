@@ -15,14 +15,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "full_name", length = 50)
+    @Column(name = "full_name", length = 50, nullable = false)
     private String fullName;
 
     @Email
-    @Column(length = 100, unique = true)
+    @Column(length = 100, unique = true, nullable = false)
     private String email;
 
-    @Column
+    @Column(nullable = false)
     private String password;
 
     @NumberFormat
@@ -33,13 +33,14 @@ public class User {
     private Timestamp createdAt;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private RoleName role;
 
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Reservation> reservation;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Order> order;
 
