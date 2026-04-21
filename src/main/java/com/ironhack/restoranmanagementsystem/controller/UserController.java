@@ -18,11 +18,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/register")
-    public UserResponse register(@RequestBody @Valid UserRequest request) {
-        return userService.register(request);
-    }
-
     @GetMapping("/me")
     public UserResponse getCurrentUser(@AuthenticationPrincipal String email) {
         return userService.findByEmail(email);
@@ -31,5 +26,10 @@ public class UserController {
     @GetMapping("/me/reservations")
     public List<ReservationResponse> getMyReservations(@AuthenticationPrincipal String email) {
         return userService.getMyReservations(email);
+    }
+
+    @GetMapping("/me/orders")
+    public List<OrderResponse> getMyOrders(@AuthenticationPrincipal String email) {
+        return userService.getMyOrders(email);
     }
 }
