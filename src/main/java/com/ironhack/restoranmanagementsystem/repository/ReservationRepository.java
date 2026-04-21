@@ -1,5 +1,6 @@
 package com.ironhack.restoranmanagementsystem.repository;
 
+import com.ironhack.restoranmanagementsystem.entity.Order;
 import com.ironhack.restoranmanagementsystem.entity.Reservation;
 import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.ReservationStatus;
@@ -14,4 +15,5 @@ public interface ReservationRepository extends JpaRepository<Reservation,Long> {
     List<Reservation> findByStatus(ReservationStatus status);
     List<Reservation> findByGuestCountGreaterThanEqual(int count);
     User findbyUser(User id);
+    List<Reservation> findByUser(User user);
 }
