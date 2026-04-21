@@ -1,59 +1,64 @@
 package com.ironhack.restoranmanagementsystem.service;
 
+import com.ironhack.restoranmanagementsystem.dto.request.UserRequest;
+import com.ironhack.restoranmanagementsystem.dto.response.UserResponse;
+import com.ironhack.restoranmanagementsystem.entity.Reservation;
 import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.RoleName;
+import com.ironhack.restoranmanagementsystem.mapper.UserMapper;
 import com.ironhack.restoranmanagementsystem.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ReservationRepository reservationRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder,
+                       ReservationRepository reservationRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.reservationRepository = reservationRepository;
     }
 
     @Transactional
-    public User register(String email, String rawPassword, String fullName) {
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("A user with email " + email + " already exists");
+    public UserResponse register(UserRequest request) {
+
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException(
+                    "User with email " + request.getEmail() + " already exists"
+            );
         }
 
-        User user = new User();
-        user.setEmail(email);
-        user.setFullName(fullName);
-        user.setPassword(passwordEncoder.encode(rawPassword));
+        User user = UserMapper.toEntity(request);
+
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setRole(RoleName.CUSTOMER);
 
-        return userRepository.save(user);
+        return UserMapper.toResponse(userRepository.save(user));
     }
 
-    @Transactional
-    public User create(String email, String rawPassword, String fullName, RoleName role) {
-        if (userRepository.existsByEmail(email)) {
-            throw new IllegalArgumentException("A user with email " + email + " already exists");
-        }
+    public UserResponse findByEmail(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() ->
+                        new RuntimeException("User not found: " + email));
 
-        User user = new User();
-        user.setEmail(email);
-        user.setFullName(fullName);
-        user.setPassword(passwordEncoder.encode(rawPassword));
-        user.setRole(role != null ? role : RoleName.CUSTOMER);
-
-        return userRepository.save(user);
+        return UserMapper.toResponse(user);
     }
 
-    public User findByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
-    }
+    public List<ReservationResponse> getMyReservations(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
 
-    public boolean checkPassword(User user, String rawPassword) {
-        return passwordEncoder.matches(rawPassword, user.getPassword());
+        List<Reservation> reservations = reservationRepository.findByUser(user);
+
+        return ReservationMapper.toResponseList(reservations);
     }
 }
