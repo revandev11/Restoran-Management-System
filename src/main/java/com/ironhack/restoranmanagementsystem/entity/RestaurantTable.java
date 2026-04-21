@@ -1,4 +1,4 @@
-package com.ironhack.restoranmanagementsystem.repository;
+package com.ironhack.restoranmanagementsystem.entity;
 
 import jakarta.persistence.*;
 
@@ -18,7 +18,8 @@ public class RestaurantTable {
     private boolean isAvailable;
 
     @OneToMany(mappedBy ="restaurantTable")
-    private List<Reservation>reservations;
+    private List<Reservation> reservations;
+
     public RestaurantTable(){}
 
     public Long getId() {
