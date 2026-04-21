@@ -2,11 +2,15 @@ package com.ironhack.restoranmanagementsystem.service;
 
 import com.ironhack.restoranmanagementsystem.dto.request.RegisterRequest;
 import com.ironhack.restoranmanagementsystem.dto.request.UserRequest;
+import com.ironhack.restoranmanagementsystem.dto.response.ReservationResponse;
 import com.ironhack.restoranmanagementsystem.dto.response.UserResponse;
+import com.ironhack.restoranmanagementsystem.entity.Order;
 import com.ironhack.restoranmanagementsystem.entity.Reservation;
 import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.RoleName;
+import com.ironhack.restoranmanagementsystem.mapper.ReservationMapper;
 import com.ironhack.restoranmanagementsystem.mapper.UserMapper;
+import com.ironhack.restoranmanagementsystem.repository.ReservationRepository;
 import com.ironhack.restoranmanagementsystem.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

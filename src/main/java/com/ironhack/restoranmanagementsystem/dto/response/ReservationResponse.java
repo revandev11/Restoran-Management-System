@@ -8,27 +8,13 @@ import java.time.LocalDateTime;
 
 public class ReservationResponse {
     private Long id;
-
-    @NotNull(message = "Reservation time is required")
-    @Future(message = "Reservation time must be in the future")
     private LocalDateTime reservationTime;
-
-    @Min(value = 1, message = "Guest count must be at least 1")
-    @Max(value = 20, message = "Guest count cannot exceed 20 people per table")
     private int guestCount;
-
-    @NotNull(message = "Reservation status is required")
     private ReservationStatus status;
-    @PastOrPresent(message = "Creation date cannot be in the future")
     private LocalDate createdAt;
-    @NotNull(message = "User ID is required")
     private Long userId;
-    @NotBlank(message = "User full name is required")
-    @Size(min = 3, max = 100, message = "Full name must be between 3 and 100 characters")
     private String userFullName;
-    @NotNull(message = "Table ID is required")
     private Long tableId;
-    @Positive(message = "Table number must be a positive value")
     private int tableNumber;
 
     public Long getId() {
