@@ -56,7 +56,6 @@ public class AuthController {
                         request.getEmail(), request.getPassword())
         );
 
-        // ❗ теперь правильно
         User user = userService.getByEmail(request.getEmail());
 
         String token = jwtTokenProvider.generateToken(

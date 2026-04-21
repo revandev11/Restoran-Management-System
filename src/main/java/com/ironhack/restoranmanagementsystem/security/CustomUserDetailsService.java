@@ -1,6 +1,7 @@
 package com.ironhack.restoranmanagementsystem.security;
 
 import com.ironhack.restoranmanagementsystem.entity.User;
+import com.ironhack.restoranmanagementsystem.exception.ResourceNotFoundException;
 import com.ironhack.restoranmanagementsystem.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -17,9 +18,9 @@ public class CustomUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws ResourceNotFoundException {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found: " + email));
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getEmail())

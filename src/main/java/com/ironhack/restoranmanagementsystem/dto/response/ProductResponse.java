@@ -1,40 +1,28 @@
-package com.ironhack.restoranmanagementsystem.entity;
+package com.ironhack.restoranmanagementsystem.dto.response;
 
-import jakarta.persistence.*;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "products")
-public class Product {
+public class ProductResponse {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
     private String name;
-
-    @Column(nullable = false)
     private String description;
-
-    @Column(nullable = false)
     private BigDecimal price;
-
-    @Column(nullable = false)
     private Boolean available;
+    private Long categoryId;
+    private String categoryName;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id", nullable = false)
-    private Category category;
+    public ProductResponse() {}
 
-    public Product() {}
-
-    public Product(String name, String description, BigDecimal price, Boolean available, Category category) {
+    public ProductResponse(Long id, String name, String description, BigDecimal price,
+                           Boolean available, Long categoryId, String categoryName) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.available = available;
-        this.category = category;
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
     }
 
     public Long getId() { return id; }
@@ -52,6 +40,9 @@ public class Product {
     public Boolean getAvailable() { return available; }
     public void setAvailable(Boolean available) { this.available = available; }
 
-    public Category getCategory() { return category; }
-    public void setCategory(Category category) { this.category = category; }
+    public Long getCategoryId() { return categoryId; }
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
+
+    public String getCategoryName() { return categoryName; }
+    public void setCategoryName(String categoryName) { this.categoryName = categoryName; }
 }
