@@ -29,10 +29,10 @@ public class Reservation {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false,updatable = false)
     private LocalDate createdAt;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "table_id", nullable = false)
     private RestaurantTable restaurantTable;
 
