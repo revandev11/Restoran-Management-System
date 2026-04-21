@@ -4,6 +4,7 @@ import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.ReservationStatus;
 import jakarta.persistence.*;
 
+import com.ironhack.restoranmanagementsystem.entity.User;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 

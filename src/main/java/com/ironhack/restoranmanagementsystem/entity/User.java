@@ -10,7 +10,7 @@ import java.sql.Timestamp;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User extends BaseEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,9 +28,6 @@ public class User {
     @NumberFormat
     @Column(name = "phone_number")
     private String phoneNumber;
-
-    @Column(name = "created_at")
-    private Timestamp createdAt;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -85,14 +82,6 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Timestamp getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Timestamp createdAt) {
-        this.createdAt = createdAt;
     }
 
     public RoleName getRole() {

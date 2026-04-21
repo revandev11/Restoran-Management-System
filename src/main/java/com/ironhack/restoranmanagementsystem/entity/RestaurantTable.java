@@ -1,6 +1,7 @@
 package com.ironhack.restoranmanagementsystem.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.List;
