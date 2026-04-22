@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class RestaurantTableMapper {
-    // Request DTO -> Entity (Create)
     public static RestaurantTable toEntity(TableCreateRequest request) {
         if (request == null) return null;
 
@@ -20,7 +19,6 @@ public class RestaurantTableMapper {
         return table;
     }
 
-    // Entity -> Response DTO
     public static TableResponse toResponse(RestaurantTable entity) {
         if (entity == null) return null;
 
@@ -32,7 +30,6 @@ public class RestaurantTableMapper {
         return response;
     }
 
-    // Entity List -> Response List
     public static List<TableResponse> toResponseList(List<RestaurantTable> tables) {
         if (tables == null) return null;
         return tables.stream()
@@ -40,7 +37,6 @@ public class RestaurantTableMapper {
                 .collect(Collectors.toList());
     }
 
-    // Update Request -> Entity
     public static void updateEntity(TableUpdateRequest request, RestaurantTable table) {
         if (request == null || table == null) return;
 

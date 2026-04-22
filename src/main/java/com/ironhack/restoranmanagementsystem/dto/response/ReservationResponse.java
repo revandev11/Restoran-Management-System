@@ -1,7 +1,6 @@
 package com.ironhack.restoranmanagementsystem.dto.response;
 
 import com.ironhack.restoranmanagementsystem.enums.ReservationStatus;
-import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

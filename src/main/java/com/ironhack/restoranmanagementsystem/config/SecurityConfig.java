@@ -1,7 +1,6 @@
 package com.ironhack.restoranmanagementsystem.config;
 
 import com.ironhack.restoranmanagementsystem.security.JwtAuthenticationFilter;
-import com.ironhack.restoranmanagementsystem.security.JwtTokenProvider;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;

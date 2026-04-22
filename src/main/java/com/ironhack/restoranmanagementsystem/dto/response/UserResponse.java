@@ -1,12 +1,5 @@
 package com.ironhack.restoranmanagementsystem.dto.response;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.NumberFormat;
-
 public class UserResponse {
     private final Long id;
     private final String fullName;

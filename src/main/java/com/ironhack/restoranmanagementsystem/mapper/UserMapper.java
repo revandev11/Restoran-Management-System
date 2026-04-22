@@ -9,7 +9,6 @@ import java.util.List;
 
 public class UserMapper {
 
-    // Request DTO -> Domain Model
     public static User toEntity(UserRequest request) {
         User user = new User();
         user.setFullName(request.getFullName());
@@ -18,7 +17,6 @@ public class UserMapper {
         return user;
     }
 
-    // Domain Model -> Full Response
     public static UserResponse toResponse(User user) {
         return new UserResponse(
                 user.getId(),
@@ -28,7 +26,6 @@ public class UserMapper {
         );
     }
 
-    // Domain Model -> Summary Response
     public static UserSummary toSummary(User user) {
         return new UserSummary(
                 user.getId(),

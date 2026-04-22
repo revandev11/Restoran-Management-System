@@ -5,7 +5,6 @@ import com.ironhack.restoranmanagementsystem.exception.ResourceNotFoundException
 import com.ironhack.restoranmanagementsystem.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

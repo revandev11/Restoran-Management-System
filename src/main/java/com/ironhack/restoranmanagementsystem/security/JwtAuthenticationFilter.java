@@ -1,6 +1,5 @@
 package com.ironhack.restoranmanagementsystem.security;
 
-// Required imports:
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

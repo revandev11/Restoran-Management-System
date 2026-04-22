@@ -22,7 +22,6 @@ public class ReservationMapper {
         return reservation;
     }
 
-    // Entity -> Response DTO
     public static ReservationResponse toResponse(Reservation reservation) {
         if (reservation == null) return null;
 
@@ -33,13 +32,11 @@ public class ReservationMapper {
         response.setStatus(reservation.getStatus());
         response.setCreatedAt(reservation.getCreatedAt());
 
-        // User məlumatları (Nested object mapping)
         if (reservation.getUser() != null) {
             response.setUserId(reservation.getUser().getId());
             response.setUserFullName(reservation.getUser().getFullName());
         }
 
-        // Masa məlumatları (Nested object mapping)
         if (reservation.getRestaurantTable() != null) {
             response.setTableId(reservation.getRestaurantTable().getId());
             response.setTableNumber(reservation.getRestaurantTable().getTableNumber());
@@ -48,7 +45,6 @@ public class ReservationMapper {
         return response;
     }
 
-    // Entity List -> Response List
     public static List<ReservationResponse> toResponseList(List<Reservation> reservations) {
         if (reservations == null) return List.of();
 

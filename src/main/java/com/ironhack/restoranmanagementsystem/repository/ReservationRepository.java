@@ -1,6 +1,5 @@
 package com.ironhack.restoranmanagementsystem.repository;
 
-import com.ironhack.restoranmanagementsystem.entity.Order;
 import com.ironhack.restoranmanagementsystem.entity.Reservation;
 import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.ReservationStatus;

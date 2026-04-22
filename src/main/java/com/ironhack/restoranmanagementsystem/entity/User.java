@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import org.springframework.format.annotation.NumberFormat;
 import java.util.List;
-import java.sql.Timestamp;
 
 @Entity
 @Table(name="users")
