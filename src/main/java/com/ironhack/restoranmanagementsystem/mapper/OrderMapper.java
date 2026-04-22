@@ -2,6 +2,7 @@ package com.ironhack.restoranmanagementsystem.mapper;
 
 import com.ironhack.restoranmanagementsystem.dto.response.OrderItemResponse;
 import com.ironhack.restoranmanagementsystem.dto.response.OrderResponse;
+import com.ironhack.restoranmanagementsystem.dto.response.OrderSummary;
 import com.ironhack.restoranmanagementsystem.entity.Order;
 import com.ironhack.restoranmanagementsystem.entity.OrderItem;
 
@@ -18,7 +19,9 @@ public class OrderMapper {
         response.setUserId(order.getUser().getId());
         response.setUserFullName(order.getUser().getFullName());
 
-        List<OrderItemResponse> items = order.getOrderItems().stream()
+        List<OrderItemResponse> items = order.getOrderItems() == null
+                ? List.of()
+                : order.getOrderItems().stream()
                 .map(OrderMapper::toItemResponse)
                 .toList();
         response.setOrderItems(items);
@@ -36,9 +39,21 @@ public class OrderMapper {
         );
     }
 
+    public static OrderSummary toSummary(Order order) {
+        return new OrderSummary(
+                order.getId(),
+                order.getCreatedAt(),
+                order.getTotalPrice(),
+                order.getStatus(),
+                order.getUser().getFullName()
+        );
+    }
+
     public static List<OrderResponse> toResponseList(List<Order> orders) {
-        return orders.stream()
-                .map(OrderMapper::toResponse)
-                .toList();
+        return orders.stream().map(OrderMapper::toResponse).toList();
+    }
+
+    public static List<OrderSummary> toSummaryList(List<Order> orders) {
+        return orders.stream().map(OrderMapper::toSummary).toList();
     }
 }

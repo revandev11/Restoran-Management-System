@@ -1,5 +1,6 @@
 package com.ironhack.restoranmanagementsystem.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ironhack.restoranmanagementsystem.enums.OrderStatus;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -28,6 +29,7 @@ public class Order {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems;
 
