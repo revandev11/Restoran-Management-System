@@ -46,14 +46,14 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("@projectService.isOwner(#id, authentication.name) or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id){
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
     @PostMapping
-    @PreAuthorize("@projectService.isOwner(#id, authentication.name) or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public UserResponse createUser(@RequestBody UserCreateRequest request){
         User user =  userService.createUser(request);
         return new UserResponse(

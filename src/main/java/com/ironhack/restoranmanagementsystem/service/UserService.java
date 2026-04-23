@@ -99,4 +99,10 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+    public boolean isOwner(Long id, String userEmail) {
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new ResourceNotFoundException("Project", projectId));
+        return project.getOwner().getEmail().equals(userEmail);
+    }
 }
