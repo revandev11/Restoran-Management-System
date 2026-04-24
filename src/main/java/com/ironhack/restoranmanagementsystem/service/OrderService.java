@@ -1,7 +1,9 @@
 package com.ironhack.restoranmanagementsystem.service;
 
+import com.ironhack.restoranmanagementsystem.dto.request.OrderCreateRequest;
 import com.ironhack.restoranmanagementsystem.dto.request.OrderItemAddRequest;
 import com.ironhack.restoranmanagementsystem.dto.response.OrderResponse;
+import com.ironhack.restoranmanagementsystem.dto.response.OrderSummary;
 import com.ironhack.restoranmanagementsystem.entity.Order;
 import com.ironhack.restoranmanagementsystem.entity.OrderItem;
 import com.ironhack.restoranmanagementsystem.entity.Product;
@@ -42,18 +44,28 @@ public class OrderService {
     }
 
     @Transactional
-    public OrderResponse createOrder(String email) {
+    public OrderResponse createOrder(OrderCreateRequest request, String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        Order order = new Order(
-                LocalDateTime.now(),
-                BigDecimal.ZERO,
-                OrderStatus.PENDING,
-                user
-        );
+        Order order = new Order(LocalDateTime.now(), BigDecimal.ZERO, OrderStatus.PENDING, user);
         order.setOrderItems(new ArrayList<>());
-        return OrderMapper.toResponse(orderRepository.save(order));
+        Order savedOrder = orderRepository.save(order);
+
+        for (OrderItemAddRequest itemRequest : request.getItems()) {
+            Product product = productRepository.findById(itemRequest.getProductId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + itemRequest.getProductId()));
+
+            if (!product.getAvailable()) {
+                throw new BadRequestException("Product is not available: " + product.getName());
+            }
+
+            OrderItem item = new OrderItem(itemRequest.getQuantity(), product.getPrice(), savedOrder, product);
+            orderItemRepository.save(item);
+        }
+
+        recalculateTotalPrice(savedOrder);
+        return OrderMapper.toResponse(orderRepository.findById(savedOrder.getId()).get());
     }
 
     @Transactional
@@ -78,7 +90,6 @@ public class OrderService {
 
         OrderItem item = new OrderItem(request.getQuantity(), product.getPrice(), order, product);
         orderItemRepository.save(item);
-
         recalculateTotalPrice(order);
 
         return OrderMapper.toResponse(orderRepository.findById(orderId).get());
@@ -92,8 +103,8 @@ public class OrderService {
         return OrderMapper.toResponse(orderRepository.save(order));
     }
 
-    public List<OrderResponse> getAll() {
-        return OrderMapper.toResponseList(orderRepository.findAll());
+    public List<OrderSummary> getAll() {
+        return OrderMapper.toSummaryList(orderRepository.findAll());
     }
 
     public OrderResponse getById(Long orderId, String email, boolean isAdmin) {
