@@ -37,7 +37,7 @@ public final ReservationService reservationService;
     public ReservationResponse update(@PathVariable Long id, @RequestBody ReservationUpdateRequest request){
         return reservationService.updateReservation(id, request);
     }
- @GetMapping("/status")
+    @GetMapping("/status")
     public ResponseEntity<List<ReservationResponse>>getByStatus(@RequestParam ReservationStatus status){
         return ResponseEntity.ok(reservationService.getReservationByStatus(status));
     }

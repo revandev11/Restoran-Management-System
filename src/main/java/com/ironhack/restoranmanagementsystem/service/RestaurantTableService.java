@@ -7,10 +7,10 @@ import com.ironhack.restoranmanagementsystem.repository.RestaurantRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
 @Service
-public class RestaurantService {
+public class RestaurantTableService {
     private final RestaurantRepository restaurantRepository;
 
-    public RestaurantService(RestaurantRepository restaurantRepository) {
+    public RestaurantTableService(RestaurantRepository restaurantRepository) {
         this.restaurantRepository = restaurantRepository;
     }
     public TableResponse createTable(TableCreateRequest request){
