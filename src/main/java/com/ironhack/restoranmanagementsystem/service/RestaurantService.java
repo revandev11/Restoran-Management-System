@@ -40,7 +40,7 @@ public class RestaurantService {
         return RestaurantTableMapper.toResponse(table);
     }
     public List<TableResponse>findAllAvailables(boolean status){
-       List<RestaurantTable>tables=restaurantRepository.findAllByAvailable(status);
+       List<RestaurantTable>tables=restaurantRepository.findAllByIsAvailable(status);
         return RestaurantTableMapper.toResponseList(tables);
     }
     public List<TableResponse> getTablesByMinCapacity(int capacity){

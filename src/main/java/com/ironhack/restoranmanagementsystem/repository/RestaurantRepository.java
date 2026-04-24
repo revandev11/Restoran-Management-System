@@ -11,6 +11,6 @@ import java.util.Optional;
 @Repository
 public interface RestaurantRepository extends JpaRepository<RestaurantTable,Long> {
     Optional<RestaurantTable> findByTableNumber(int tableNumber);
-    List<RestaurantTable> findAllByAvailable(boolean status);
+    List<RestaurantTable> findAllByIsAvailable(boolean status);
     List<RestaurantTable> findByCapacityGreaterThanEqual(int capacity);
 }
