@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping
-    @PreAuthorize("@projectService.isOwner(#id, authentication.name) or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<UserSummary> getAllUsers(){
         return userService.getAllUsers();
     }
