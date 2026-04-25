@@ -1,8 +1,10 @@
 package com.ironhack.restoranmanagementsystem.controller;
+import com.ironhack.restoranmanagementsystem.dto.request.ReservationCreateRequest;
 import com.ironhack.restoranmanagementsystem.dto.request.ReservationUpdateRequest;
 import com.ironhack.restoranmanagementsystem.dto.response.ReservationResponse;
 import com.ironhack.restoranmanagementsystem.enums.ReservationStatus;
 import com.ironhack.restoranmanagementsystem.service.ReservationService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,13 @@ public class ReservationController {
 public final ReservationService reservationService;
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
+    }
+    @PostMapping("/{userId}")
+    public ResponseEntity<ReservationResponse> createReservation(
+            @PathVariable Long userId,
+            @Valid @RequestBody ReservationCreateRequest request) {
+        ReservationResponse response = reservationService.createReservation(userId, request);
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
     @GetMapping
     public List<ReservationResponse>getAll(){
@@ -48,4 +57,7 @@ public final ReservationService reservationService;
     public List<ReservationResponse>getByMinGuests(@RequestParam int count){
         return reservationService.getByMinGuestCount(count);
     }
+
+
+
 }
