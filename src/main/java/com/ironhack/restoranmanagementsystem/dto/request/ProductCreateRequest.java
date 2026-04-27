@@ -1,5 +1,6 @@
 package com.ironhack.restoranmanagementsystem.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -22,6 +23,7 @@ public class ProductCreateRequest {
     private Boolean available;
 
     @NotNull(message = "Category ID is required")
+    @JsonProperty("category_id")
     private Long categoryId;
 
     public ProductCreateRequest() {}

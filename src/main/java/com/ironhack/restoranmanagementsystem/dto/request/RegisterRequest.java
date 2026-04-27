@@ -1,5 +1,6 @@
 package com.ironhack.restoranmanagementsystem.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -16,10 +17,12 @@ public class RegisterRequest {
     private String password;
 
     @NotBlank(message = "Full name is required")
+    @JsonProperty("full_name")
     private String fullName;
 
     @NotBlank(message = "Phone number is required!")
     @NumberFormat
+    @JsonProperty("phone_number")
     private String phoneNumber;
 
     private String role;

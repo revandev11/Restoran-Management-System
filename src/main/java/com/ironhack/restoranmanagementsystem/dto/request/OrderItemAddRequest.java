@@ -1,11 +1,13 @@
 package com.ironhack.restoranmanagementsystem.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class OrderItemAddRequest {
 
     @NotNull(message = "Product ID is required")
+    @JsonProperty("product_id")
     private Long productId;
 
     @NotNull(message = "Quantity is required")
