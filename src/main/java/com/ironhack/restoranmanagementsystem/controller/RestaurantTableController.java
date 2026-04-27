@@ -15,10 +15,12 @@ public class RestaurantTableController {
         this.restaurantTableService = restaurantTableService;
     }
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public TableResponse createTable(@RequestBody @Valid TableCreateRequest request){
         return restaurantTableService.createTable(request);
     }
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public TableResponse updateTable(@PathVariable Long id, @RequestBody @Valid TableCreateRequest request){
         return restaurantTableService.updateTable(id, request);
     }
