@@ -47,30 +47,39 @@ public class ReservationService {
                 .orElseThrow(() -> new RuntimeException("Reservation not found with id: " + id));
         return ReservationMapper.toResponse(reservation);
     }
-
     public List<ReservationResponse> getMyReservations(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         List<Reservation> reservations = reservationRepository.findByUser(user);
         return ReservationMapper.toResponseList(reservations);
     }
-
+    public ReservationResponse confirmReservation(Long id){
+        Reservation reservation=reservationRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Reservation not found"));
+        reservation.setStatus(ReservationStatus.CONFIRMED);
+        return ReservationMapper.toResponse(reservationRepository.save(reservation));
+    }
+    public ReservationResponse cancelReservation(Long id){
+        Reservation reservation=reservationRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Reservation not found"));
+        reservation.setStatus(ReservationStatus.CANCELLED);
+        return ReservationMapper.toResponse(reservationRepository.save(reservation));
+    }
     public void deleteReservation(Long id) {
         if (!reservationRepository.existsById(id)) {
             throw new RuntimeException("Reservation not found with id: " + id);
         }
         reservationRepository.deleteById(id);
     }
-
     public ReservationResponse updateReservation(Long id, ReservationUpdateRequest request) {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reservation not found with id:" + id));
         reservation.setReservationTime(request.getReservationTime());
         reservation.setGuestCount(request.getGuestCount());
+        reservation.setStatus(ReservationStatus.PENDING);
         Reservation updatedReservation = reservationRepository.save(reservation);
         return ReservationMapper.toResponse(updatedReservation);
     }
-
     public List<ReservationResponse> getReservationByStatus(ReservationStatus status) {
         List<Reservation> reservations = reservationRepository.findByStatus(status);
         return ReservationMapper.toResponseList(reservations);
@@ -83,5 +92,4 @@ public class ReservationService {
         List<Reservation> reservations = reservationRepository.findByGuestCountGreaterThanEqual(count);
         return ReservationMapper.toResponseList(reservations);
     }
-
 }
