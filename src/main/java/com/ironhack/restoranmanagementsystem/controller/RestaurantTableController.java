@@ -3,6 +3,7 @@ import com.ironhack.restoranmanagementsystem.dto.request.TableCreateRequest;
 import com.ironhack.restoranmanagementsystem.dto.response.TableResponse;
 import com.ironhack.restoranmanagementsystem.service.RestaurantTableService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class RestaurantTableController {
         return restaurantTableService.updateTable(id, request);
     }
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public void deleteTable(@PathVariable Long id){
         restaurantTableService.deleteTable(id);}
     @GetMapping("/status")
