@@ -1,5 +1,6 @@
 package com.ironhack.restoranmanagementsystem.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ironhack.restoranmanagementsystem.enums.RoleName;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import org.springframework.format.annotation.NumberFormat;
 public class UserCreateRequest {
     @NotBlank(message = "Full name is required!")
     @Size(min = 6, max=100, message = "Full name must be 2-200 characters")
+    @JsonProperty("full_name")
     private String fullName;
 
     @NotBlank(message = "Email is required!")
@@ -22,6 +24,7 @@ public class UserCreateRequest {
 
     @NotBlank(message = "Phone number is required!")
     @NumberFormat
+    @JsonProperty("phone_number")
     private String phoneNumber;
 
     private String role;

@@ -30,7 +30,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@Valid @RequestBody RegisterRequest request) {
-
         User user = authService.register(request);
 
         String token = jwtTokenProvider.generateToken(
