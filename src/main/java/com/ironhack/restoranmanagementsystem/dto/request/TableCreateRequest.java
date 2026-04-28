@@ -17,6 +17,14 @@ public class TableCreateRequest {
     @NotNull(message = "Availability status is required")
     @JsonProperty("is_available")
     private Boolean isAvailable;
+    public TableCreateRequest(){}
+
+    public TableCreateRequest(int tableNumber, int capacity, Boolean isAvailable) {
+        this.tableNumber = tableNumber;
+        this.capacity = capacity;
+        this.isAvailable = isAvailable;
+    }
+
 
     public int getTableNumber() {
         return tableNumber;

@@ -5,6 +5,15 @@ public class TableResponse {
     private int tableNumber;
     private int capacity;
     private Boolean isAvailable;
+    public TableResponse(){}
+
+    public TableResponse(Long id, int tableNumber, int capacity, Boolean isAvailable) {
+        this.id = id;
+        this.tableNumber = tableNumber;
+        this.capacity = capacity;
+        this.isAvailable = isAvailable;
+    }
+
 
     public Long getId() {
         return id;
