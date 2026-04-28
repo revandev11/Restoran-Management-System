@@ -15,6 +15,7 @@ public class ReservationCreateRequest {
 
     @NotNull(message = "Guest count is required")
     @Min(value = 1, message = "Guest count must be at least 1")
+    @JsonProperty("guest_сount")
     private Integer guestCount;
 
     @NotNull(message = "Table ID is required")
