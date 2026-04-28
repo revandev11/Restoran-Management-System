@@ -10,7 +10,10 @@ public class ReservationUpdateRequest {
     private LocalDateTime reservationTime;
 
     @Min(value = 1, message = "Guest count must be at least 1")
+    @JsonProperty("guest_сount")
     private Integer guestCount;
+
+    @JsonProperty("restaurant_table_id")
     private Long restaurantTableId;
 
     public LocalDateTime getReservationTime() {
