@@ -54,7 +54,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/users/**").authenticated()
                         .requestMatchers("/api/auth/**").permitAll()
                         .requestMatchers("/api/orders/**").authenticated()
-                        .requestMatchers("/api/reservation/**").authenticated()
+                        .requestMatchers("/api/reservations/**").authenticated()
                         .anyRequest().permitAll()
                 )
                 .exceptionHandling(ex ->

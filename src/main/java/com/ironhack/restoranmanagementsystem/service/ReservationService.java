@@ -74,18 +74,18 @@ public class ReservationService {
     }
 
     public ReservationResponse getById(Long id) {
-        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new RuntimeException("Reservation not found with id: " + id));
+        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reservation not found with id: " + id));
         return ReservationMapper.toResponse(reservation);
     }
 
     public List<ReservationResponse> getMyReservations(Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         List<Reservation> reservations = reservationRepository.findByUser(user);
         return ReservationMapper.toResponseList(reservations);
     }
 
     public ReservationResponse confirmReservation(Long id) {
-        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new RuntimeException("Reservation not found"));
+        Reservation reservation = reservationRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Reservation not found"));
         reservation.setStatus(ReservationStatus.CONFIRMED);
         return ReservationMapper.toResponse(reservationRepository.save(reservation));
     }
@@ -105,7 +105,7 @@ public class ReservationService {
 
     public void deleteReservation(Long id) {
         if (!reservationRepository.existsById(id)) {
-            throw new RuntimeException("Reservation not found with id: " + id);
+            throw new ResourceNotFoundException("Reservation not found with id: " + id);
         }
         reservationRepository.deleteById(id);
     }

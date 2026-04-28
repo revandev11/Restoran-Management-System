@@ -34,12 +34,12 @@ public class RestaurantTableService {
     }
     public void deleteTable(Long id){
         if(!restaurantTableRepository.existsById(id)){
-            throw new RuntimeException("Table to be deleted not found");
+            throw new ResourceNotFoundException("Table to be deleted not found");
         }        restaurantTableRepository.deleteById(id);
     }
     public TableResponse findTableNumber(int tableNumber){
         RestaurantTable table=restaurantTableRepository.findByTableNumber(tableNumber)
-                .orElseThrow(()->new RuntimeException("Table number not found:"+tableNumber));
+                .orElseThrow(()->new ResourceNotFoundException("Table number not found:"+tableNumber));
         return RestaurantTableMapper.toResponse(table);
     }
     public List<TableResponse>findAllAvailables(boolean status){

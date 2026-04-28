@@ -3,6 +3,7 @@ import com.ironhack.restoranmanagementsystem.dto.request.RegisterRequest;
 import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.RoleName;
 import com.ironhack.restoranmanagementsystem.exception.ConflictException;
+import com.ironhack.restoranmanagementsystem.exception.ResourceNotFoundException;
 import com.ironhack.restoranmanagementsystem.repository.UserRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class AuthService {
     public User getByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new RuntimeException("User not found: " + email));
+                        new ResourceNotFoundException("User not found: " + email));
     }
     @Transactional
     public User register(RegisterRequest request) {

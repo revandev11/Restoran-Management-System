@@ -10,6 +10,7 @@ import com.ironhack.restoranmanagementsystem.entity.Reservation;
 import com.ironhack.restoranmanagementsystem.entity.User;
 import com.ironhack.restoranmanagementsystem.enums.RoleName;
 import com.ironhack.restoranmanagementsystem.exception.ConflictException;
+import com.ironhack.restoranmanagementsystem.exception.ResourceNotFoundException;
 import com.ironhack.restoranmanagementsystem.mapper.OrderMapper;
 import com.ironhack.restoranmanagementsystem.mapper.ReservationMapper;
 import com.ironhack.restoranmanagementsystem.mapper.UserMapper;
@@ -44,14 +45,14 @@ public class UserService {
     public UserResponse findByEmail(String email) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() ->
-                        new RuntimeException("User not found: " + email));
+                        new ResourceNotFoundException("User not found: " + email));
 
         return UserMapper.toResponse(user);
     }
 
     public List<ReservationResponse> getMyReservations(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         List<Reservation> reservations = reservationRepository.findByUser(user);
 
@@ -60,7 +61,7 @@ public class UserService {
 
     public List<OrderResponse> getMyOrders(String email) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         List<Order> orders = orderRepository.findByUser(user);
 
