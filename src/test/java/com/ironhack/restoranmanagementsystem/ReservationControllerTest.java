@@ -25,12 +25,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 import java.util.Collections;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ReservationController.class)
 @Import({SecurityConfig.class, CustomAuthenticationEntryPoint.class, CustomAccessDeniedHandler.class})
@@ -103,7 +104,7 @@ class ReservationControllerTest {
     }
 
     @Test
-    @WithMockUser(roles = "CUSTOMER") // CUSTOMER не может подтверждать
+    @WithMockUser(roles = "CUSTOMER")
     void confirmReservation_ForbiddenForUser() throws Exception {
         mockMvc.perform(patch("/api/reservations/1/confirm")
                         .with(csrf()))
@@ -115,7 +116,7 @@ class ReservationControllerTest {
     void deleteReservation_Success() throws Exception {
         mockMvc.perform(delete("/api/reservations/1")
                         .with(csrf()))
-                .andExpect(status().isNoContent()); // В контроллере .noContent().build()
+                .andExpect(status().isNoContent());
     }
 
     @Test

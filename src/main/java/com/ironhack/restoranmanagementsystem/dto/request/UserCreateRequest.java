@@ -1,7 +1,6 @@
 package com.ironhack.restoranmanagementsystem.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ironhack.restoranmanagementsystem.enums.RoleName;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

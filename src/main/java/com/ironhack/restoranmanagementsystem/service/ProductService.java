@@ -4,7 +4,6 @@ import com.ironhack.restoranmanagementsystem.dto.request.ProductCreateRequest;
 import com.ironhack.restoranmanagementsystem.dto.response.ProductResponse;
 import com.ironhack.restoranmanagementsystem.entity.Category;
 import com.ironhack.restoranmanagementsystem.entity.Product;
-import com.ironhack.restoranmanagementsystem.exception.BadRequestException;
 import com.ironhack.restoranmanagementsystem.exception.ResourceNotFoundException;
 import com.ironhack.restoranmanagementsystem.mapper.ProductMapper;
 import com.ironhack.restoranmanagementsystem.repository.CategoryRepository;

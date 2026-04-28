@@ -15,7 +15,7 @@ public class JwtTokenProvider {
     private String secret;
 
     @Value("${jwt.expiration}")
-    private long expiration; // in milliseconds
+    private long expiration;
 
     public String generateToken(String email, String role) {
         return JWT.create()
