@@ -105,6 +105,13 @@ public class UserService {
     public User updateUser(Long id, UserUpdateRequest request){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        if (!user.getEmail().equalsIgnoreCase(request.getEmail())) {
+            boolean emailExists = userRepository.existsByEmail(request.getEmail());
+            if (emailExists) {
+                throw new ConflictException("User with this email already exists: " + request.getEmail());
+            }
+        }
         user.setFullName(request.getFullName());
         user.setEmail(request.getEmail());
         user.setPhoneNumber(request.getPhoneNumber());

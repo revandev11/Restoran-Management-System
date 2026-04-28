@@ -65,7 +65,7 @@ public class UserController {
                 user.getPhoneNumber()
         );
     }
-    @PutMapping("/{id}}")
+    @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public UserResponse updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest request){
         User user =  userService.updateUser(id, request);
