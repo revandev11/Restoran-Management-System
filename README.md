@@ -15,11 +15,7 @@ A complete, production-ready **Spring Boot 4** backend for the Restoran Manageme
 * **REST API:** Clean, structured endpoints for all operations.
 
 ---
-## 🗺️ Entity Relationship Diagram (ERD)
 
-![ER Diagram](docs/ERDiagram.png)
-
----
 ## 🏗️ Technology Stack
 
 | Category | Technology |
@@ -265,5 +261,22 @@ Using Maven Wrapper
 [x] Jakarta Validation for input integrity
 
 [x] 13 test classes covering Services, Controllers, and Security
+
+## 👥 Team Collaboration
+
+This is a **group project** developed collaboratively. To ensure efficient task tracking and organization, we managed the entire development process through **Trello**.
+
+### 📋 Project Management
+You can view our task organization and project progress on our board:
+* 🔗 **[Project Trello Board](https://trello.com/b/jvMud1nn/restaurant-management-system)**
+
+### 🛠️ Contributors
+The following individuals contributed to the development of this project:
+
+| Name | LinkedIn Profile |
+| :--- | :--- |
+| **Ali Safarli** | [🔗 Profile](https://www.linkedin.com/in/ali-safarli-7a01a7297/) |
+| **Revan Abushov** | [🔗 Profile](https://www.linkedin.com/in/revanabusov/) |
+| **Abdulvahab Alaskarli** | [🔗 Profile](https://www.linkedin.com/in/abdulvahhab-alaskarov-24b346150/?locale=ru) |
 
 ⭐ If you like this project, don't forget to give it a star!
